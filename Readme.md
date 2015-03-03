@@ -76,4 +76,3 @@ Options:
 
 ## Todo
 
-- expose the FileReader read buffer size
