@@ -16,5 +16,11 @@ module.exports = {
         t.done();
     },
 
+    'FileReader should use configured bufferSize': function(t) {
+        var reader = new Fgets.FileReader('/etc/motd', {bufferSize: 3});
+        t.equal(reader.buf.length, 3);
+        t.done();
+    },
+
     // TODO: more tests
 };

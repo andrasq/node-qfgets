@@ -1,6 +1,6 @@
 {
   "name": "qfgets",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "fast bufferd line-at-a-time input",
   "license": "Apache-2.0",
   "repository": {
