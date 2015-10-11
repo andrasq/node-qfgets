@@ -60,6 +60,14 @@ returns true when fgets has no more lines to return
             if (!fp.feof()) setImmediate(readfile);     // yield periodically
         })();
 
+### processLines( visitor(err, cb), callback(err, count) )
+
+Run all newline-terminated lines in the file through the visitor() function.
+Visitor is called with the line string and a callback, and should return via
+its callback an error to stop the processing.  processLines() calls its
+callback with the final success status and the count of lines successfully
+visited.
+
 ### Fgets.FileReader( filepath, [options] )
 
 fast file reader to feed data to fgets.  A smidge faster than a read stream
