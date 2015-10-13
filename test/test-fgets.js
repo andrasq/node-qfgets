@@ -23,7 +23,8 @@ module.exports = {
 
     'FileReader should use configured bufferSize': function(t) {
         var reader = new Fgets.FileReader('/etc/motd', {bufferSize: 3});
-        t.equal(reader.buf.length, 3);
+        t.ok(reader.buf.length >= 3);
+        t.ok(reader.buf.length <= 3+4);
         t.done();
     },
 
@@ -45,6 +46,22 @@ module.exports = {
             t.ok(yieldCount > nlines/100);
             t.done();
         });
+    },
+
+    'fgets should preserve multi-byte utf8 characters': function(t) {
+        var data = new Array(11).join("\uff00") + "\n";
+        fs.writeFileSync("/tmp/unit-fgets.tmp", data);
+        var fp = new Fgets(new Fgets.FileReader("/tmp/unit-fgets.tmp", {bufferSize: 3}));
+        var lines = [];
+        t.expect(2);
+        (function readLines() {
+            var line = fp.fgets();
+            if (!line) return setTimeout(readLines, 1);
+            fs.unlinkSync("/tmp/unit-fgets.tmp");
+            t.equal(line.length, data.length);
+            t.equal(line, data);
+            t.done();
+        })();
     },
 
     // TODO: more tests
