@@ -60,7 +60,7 @@ returns true when fgets has no more lines to return
             if (!fp.feof()) setImmediate(readfile);     // yield periodically
         })();
 
-### processLines( visitor(err, cb), callback(err, count) )
+### processLines( visitor(line, cb(err)), callback(err, count) )
 
 Run all newline-terminated lines in the file through the visitor() function.
 Visitor is called with the line string and a callback, and should return via
